@@ -121,11 +121,7 @@ export default function App() {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.1 }}
                 >
-                  Type{" "}
-                  <span className="text-orange-400 uppercase">
-                    {currentSlide.secret}
-                  </span>{" "}
-                  to play
+                  {currentSlide.question}
                 </motion.h1>
 
                 <motion.p
@@ -134,10 +130,8 @@ export default function App() {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2 }}
                 >
-                  {currentSlide.question}
+                  Type the answer to play the video.
                 </motion.p>
-
-                {/* letter boxes */}
                 <motion.div
                   className="flex gap-2"
                   initial={{ y: 15, opacity: 0 }}

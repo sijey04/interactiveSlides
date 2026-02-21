@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
    Slide configuration — add more slides here
    ───────────────────────────────────────────── */
 const SLIDES = [
-  { secret: "run",    video: "/1.mp4" },
-  { secret: "eating", video: "/3.mp4" },
+  { secret: "run",    video: "/1.mp4", question: "What are the boys doing?" },
+  { secret: "eating", video: "/3.mp4", question: "What are the children doing?" },
 ];
 
 export default function App() {
@@ -134,7 +134,7 @@ export default function App() {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2 }}
                 >
-                  Type the word letter by letter to start the video.
+                  {currentSlide.question}
                 </motion.p>
 
                 {/* letter boxes */}

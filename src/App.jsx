@@ -5,8 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
    Slide configuration — add more slides here
    ───────────────────────────────────────────── */
 const SLIDES = [
-  { secret: "run",    video: "/1.mp4", question: "What are the boys doing?" },
-  { secret: "eating", video: "/3.mp4", question: "What are the children doing?" },
+  { secret: "running",     video: "/1.mp4", question: "What are the boys doing?" },
+  { secret: "eating",  video: "/3.mp4", question: "What are the children doing?" },
+  { secret: "singing",  video: "/4.mp4", question: "What is the girl doing?" },
+  { secret: "climbing", video: "/5.mp4", question: "What is the boy doing?" },
+  { secret: "dancing",  video: "/6.mp4", question: "What is the girl doing?" },
 ];
 
 export default function App() {
@@ -116,7 +119,7 @@ export default function App() {
                 transition={{ duration: 0.4 }}
               >
                 <motion.h1
-                  className="text-lg font-bold tracking-tight"
+                  className="text-lg font-bold tracking-tight text-white"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.1 }}
@@ -125,7 +128,7 @@ export default function App() {
                 </motion.h1>
 
                 <motion.p
-                  className="max-w-sm text-xs text-slate-400"
+                  className="max-w-sm text-xs text-white"
                   initial={{ y: 15, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2 }}
@@ -148,7 +151,7 @@ export default function App() {
                         className={`flex h-8 w-8 items-center justify-center rounded-lg border text-sm font-bold uppercase transition-all duration-200 ${
                           filled
                             ? "border-orange-400 bg-orange-400/20 text-orange-300 shadow-lg shadow-orange-500/20"
-                            : "border-white/10 bg-white/5 text-slate-600"
+                            : "border-white/10 bg-white/5 text-white/60"
                         }`}
                       >
                         {filled ? progress[i] : "?"}
@@ -188,7 +191,7 @@ export default function App() {
                 </motion.h1>
 
                 <motion.p
-                  className="max-w-sm text-xs text-slate-400"
+                  className="max-w-sm text-xs text-white"
                   initial={{ y: 15, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.4 }}

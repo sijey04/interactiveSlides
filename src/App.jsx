@@ -5,11 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
    Slide configuration — add more slides here
    ───────────────────────────────────────────── */
 const SLIDES = [
-  { secret: "running",     video: "/1.mp4", question: "What are the boys doing?" },
-  { secret: "eating",  video: "/3.mp4", question: "What are the children doing?" },
-  { secret: "singing",  video: "/4.mp4", question: "What is the girl doing?" },
-  { secret: "climbing", video: "/5.mp4", question: "What is the boy doing?" },
-  { secret: "dancing",  video: "/6.mp4", question: "What is the girl doing?" },
+  { secret: "run",     video: "/1.mp4", question: "What are the boys doing?" },
+  { secret: "eat",  video: "/3.mp4", question: "What are the children doing?" },
+  { secret: "sing",  video: "/4.mp4", question: "What is the girl doing?" },
+  { secret: "climb", video: "/5.mp4", question: "What is the boy doing?" },
+  { secret: "dance",  video: "/6.mp4", question: "What is the girl doing?" },
 ];
 
 export default function App() {

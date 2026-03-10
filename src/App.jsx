@@ -240,6 +240,32 @@ export default function App() {
         )}
       </AnimatePresence>
 
+      {/* ══════════════════════════════════════
+          ANSWER OVERLAY — shown while playing
+          ══════════════════════════════════════ */}
+      <AnimatePresence>
+        {phase === "playing" && (
+          <motion.div
+            key="answer-overlay"
+            className="absolute inset-x-0 top-8 z-20 flex flex-col items-center gap-2 pointer-events-none"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <p className="text-xs text-white/70 uppercase tracking-widest font-medium">Answer</p>
+            <motion.p
+              className="text-7xl font-extrabold tracking-tight text-white uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+              initial={{ scale: 0.7, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.4 }}
+            >
+              {currentSlide.secret}
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </div>
   );
 }

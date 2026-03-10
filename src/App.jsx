@@ -119,7 +119,7 @@ export default function App() {
                 transition={{ duration: 0.4 }}
               >
                 <motion.h1
-                  className="text-lg font-bold tracking-tight text-white"
+                  className="text-6xl font-bold tracking-tight text-white"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.1 }}
@@ -128,7 +128,7 @@ export default function App() {
                 </motion.h1>
 
                 <motion.p
-                  className="max-w-sm text-xs text-white"
+                  className="max-w-sm text-2xl text-white"
                   initial={{ y: 15, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2 }}
@@ -136,7 +136,7 @@ export default function App() {
                   Type the answer to play the video.
                 </motion.p>
                 <motion.div
-                  className="flex gap-2"
+                  className="flex gap-4"
                   initial={{ y: 15, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.3 }}
@@ -148,7 +148,7 @@ export default function App() {
                         key={i}
                         animate={filled ? { scale: [1, 1.2, 1] } : {}}
                         transition={{ duration: 0.2 }}
-                        className={`flex h-8 w-8 items-center justify-center rounded-lg border text-sm font-bold uppercase transition-all duration-200 ${
+                        className={`flex h-20 w-20 items-center justify-center rounded-xl border-2 text-4xl font-bold uppercase transition-all duration-200 ${
                           filled
                             ? "border-orange-400 bg-orange-400/20 text-orange-300 shadow-lg shadow-orange-500/20"
                             : "border-white/10 bg-white/5 text-white/60"
@@ -247,10 +247,10 @@ export default function App() {
         {phase === "playing" && (
           <motion.div
             key="answer-overlay"
-            className="absolute inset-x-0 top-8 z-20 flex flex-col items-center gap-2 pointer-events-none"
-            initial={{ opacity: 0, y: -20 }}
+            className="absolute inset-x-0 bottom-20 z-20 flex flex-col items-center gap-2 pointer-events-none"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <p className="text-xs text-white/70 uppercase tracking-widest font-medium">Answer</p>

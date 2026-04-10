@@ -27,7 +27,9 @@ export default function App() {
   const [slideIndex, setSlideIndex] = useState(0);   // which slide we're on
   const [phase,      setPhase]      = useState("idle"); // idle | correct | playing | ended(final)
   const [feedback, setFeedback] = useState("");
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const feedbackTimerRef = useRef(null);
+  const containerRef = useRef(null);
 
   const currentSlide = SLIDES[slideIndex];
   const isLastSlide = slideIndex === SLIDES.length - 1;
@@ -62,10 +64,55 @@ export default function App() {
   }, [phase]);
 
   useEffect(() => {
+    const updateFullscreenState = () => {
+      const inStandardFullscreen = document.fullscreenElement != null;
+      const inWebkitFullscreen = document.webkitFullscreenElement != null;
+      setIsFullscreen(inStandardFullscreen || inWebkitFullscreen);
+    };
+
+    document.addEventListener("fullscreenchange", updateFullscreenState);
+    document.addEventListener("webkitfullscreenchange", updateFullscreenState);
+
     return () => {
       if (feedbackTimerRef.current) window.clearTimeout(feedbackTimerRef.current);
+      document.removeEventListener("fullscreenchange", updateFullscreenState);
+      document.removeEventListener("webkitfullscreenchange", updateFullscreenState);
     };
   }, []);
+
+  const toggleFullscreen = async () => {
+    const element = containerRef.current;
+    if (!element) return;
+
+    const inStandardFullscreen = document.fullscreenElement != null;
+    const inWebkitFullscreen = document.webkitFullscreenElement != null;
+    const currentlyFullscreen = inStandardFullscreen || inWebkitFullscreen;
+
+    try {
+      if (!currentlyFullscreen) {
+        if (element.requestFullscreen) {
+          await element.requestFullscreen();
+          return;
+        }
+
+        if (element.webkitRequestFullscreen) {
+          element.webkitRequestFullscreen();
+          return;
+        }
+      } else {
+        if (document.exitFullscreen) {
+          await document.exitFullscreen();
+          return;
+        }
+
+        if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      }
+    } catch {
+      // Some tablet browsers silently block fullscreen without user gesture.
+    }
+  };
 
   /* ── Video ended ── */
   const handleVideoEnd = () => {
@@ -91,7 +138,30 @@ export default function App() {
   const isEnded = phase === "ended";
 
   return (
-    <div className="relative h-screen w-screen overflow-hidden bg-black font-sans text-white select-none">
+    <div ref={containerRef} className="relative h-screen w-screen overflow-hidden bg-black font-sans text-white select-none">
+
+      <button
+        onClick={toggleFullscreen}
+        aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+        title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+        className="absolute right-4 top-4 z-30 inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-md transition-colors hover:bg-black/65"
+      >
+        {isFullscreen ? (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5" aria-hidden="true">
+            <path d="M9 3H5v4" />
+            <path d="M15 3h4v4" />
+            <path d="M9 21H5v-4" />
+            <path d="M15 21h4v-4" />
+          </svg>
+        ) : (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5" aria-hidden="true">
+            <path d="M8 3H4v4" />
+            <path d="M16 3h4v4" />
+            <path d="M8 21H4v-4" />
+            <path d="M16 21h4v-4" />
+          </svg>
+        )}
+      </button>
 
       {/* ══════════════════════════════════════
           FULLSCREEN IMAGE — swaps src per slide
@@ -128,12 +198,12 @@ export default function App() {
                 transition={{ duration: 0.4 }}
               >
                 <motion.h1
-                  className="text-5xl font-bold tracking-tight text-white"
+                  className="text-7xl font-bold tracking-tight text-white"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.1 }}
                 >
-                  Tama or Mali?
+                  TAMA O MALI?
                 </motion.h1>
 
                 <motion.p
@@ -259,14 +329,14 @@ export default function App() {
               ))}
             </div>
             <motion.div
-              className="flex h-32 w-32 items-center justify-center rounded-full bg-emerald-500/20 ring-4 ring-emerald-400/60 backdrop-blur-sm"
+              className="flex h-56 w-56 items-center justify-center rounded-full bg-emerald-500/20 ring-6 ring-emerald-400/60 backdrop-blur-sm"
               initial={{ scale: 0.4, rotate: -20, opacity: 0 }}
               animate={{ scale: [0.4, 1.12, 1], rotate: [20, -10, 0], opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.45, ease: "easeOut" }}
             >
               <motion.span
-                className="text-7xl font-black text-emerald-300"
+                className="text-[14rem] leading-none font-black text-emerald-300"
                 initial={{ scale: 0 }}
                 animate={{ scale: [0, 1.15, 1] }}
                 transition={{ duration: 0.35, delay: 0.1 }}
@@ -274,15 +344,6 @@ export default function App() {
                 ✓
               </motion.span>
             </motion.div>
-            <motion.p
-              className="text-3xl font-extrabold uppercase tracking-wide text-emerald-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
-              initial={{ y: 8, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -8, opacity: 0 }}
-              transition={{ duration: 0.25, delay: 0.15 }}
-            >
-              You are correct
-            </motion.p>
           </motion.div>
         )}
       </AnimatePresence>

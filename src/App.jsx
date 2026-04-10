@@ -198,7 +198,7 @@ export default function App() {
                 transition={{ duration: 0.4 }}
               >
                 <motion.h1
-                  className="text-7xl font-bold tracking-tight text-white"
+                  className="text-5xl font-bold tracking-tight text-white"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.1 }}
